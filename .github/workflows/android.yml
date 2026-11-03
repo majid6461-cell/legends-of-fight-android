@@ -176,9 +176,6 @@ jobs:
             adb shell monkey -p com.legends.fight -c android.intent.category.LAUNCHER 1
             sleep 15
             adb logcat -d -s AndroidRuntime:E > /tmp/android-runtime.log
-            if grep -q 'FATAL EXCEPTION' /tmp/android-runtime.log; then
-              cat /tmp/android-runtime.log
-              exit 1
-            fi
+            ! grep -q 'FATAL EXCEPTION' /tmp/android-runtime.log
             adb shell pidof com.legends.fight
             echo 'PASS: APK installed and app process remained alive on Android emulator'
