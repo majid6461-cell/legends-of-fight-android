@@ -127,3 +127,16 @@ The APK is debug-signed and has not been installed/tested on a physical device o
 The latest CI run succeeded: https://github.com/majid6461-cell/legends-of-fight-android/actions/runs/41625155209. Godot 4.7.2 project import and GDScript parsing, the 12-fighter/8-arena smoke test, Android export, package metadata inspection, and artifact upload passed. APK package: com.legends.fight, version 0.1.0, min SDK 24, target SDK 36. Artifact ID: 13225029167.
 
 The APK is debug-signed. Installation and gameplay on a physical phone or emulator have not yet been performed. See docs/TEST_REPORT.md for details and SHA-256.
+
+
+## Final verified build — v0.1.0 (2026-11-03)
+
+- [Successful GitHub Actions run #12](https://github.com/majid6461-cell/legends-of-fight-android/actions/runs/41626668554)
+- Godot 4.7.2 stable; import, GDScript parse validation, roster smoke test, Android export and package inspection: PASS.
+- Android emulator test: PASS. The x86_64 APK was installed with ADB, launched from the Android launcher, remained alive after 15 seconds, and produced no AndroidRuntime FATAL EXCEPTION.
+- Package: com.legends.fight; version 0.1.0; min SDK 24; target SDK 36.
+- Architectures: ARM64-v8a and x86_64.
+- APK artifact: [download from Actions](https://github.com/majid6461-cell/legends-of-fight-android/actions/runs/41626668554/artifacts/13225089606).
+- Local APK SHA-256: ec5ee9f962fea2b7eb90d220bdba53e91c15a4af5a2521d0a6a71caa200e6c3c.
+
+The APK is debug-signed. No test has been performed on a physical phone; complete gameplay/performance testing across devices remains future work. The project is an MVP with procedural low-poly characters and arenas, not a finished Tekken-scale commercial production.
