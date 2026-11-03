@@ -1,0 +1,121 @@
+name: Build Android APK
+
+on:
+  workflow_dispatch:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  build-apk:
+    name: Export Godot Android APK
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    env:
+      GODOT_VERSION: '4.7.2'
+      GODOT_VERSION_DIR: '4.7.2.stable'
+      ANDROID_HOME: ${{ vars.ANDROID_HOME || '/usr/local/lib/android/sdk' }}
+      ANDROID_SDK_ROOT: ${{ vars.ANDROID_HOME || '/usr/local/lib/android/sdk' }}
+    steps:
+      - name: Checkout source repository
+        uses: actions/checkout@v4
+
+      - name: Restore Godot project source archive
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p /tmp/lof-source
+          cat source/chunk-*.b64 | base64 --decode > /tmp/lof-source.tar.xz
+          tar -xJf /tmp/lof-source.tar.xz -C /tmp/lof-source
+          rsync -a --delete /tmp/lof-source/legends-of-fight-android/ ./
+
+      - name: Set up Java 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Install Android SDK packages
+        run: |
+          sdkmanager --install \
+            'platform-tools' \
+            'platforms;android-35' \
+            'build-tools;35.0.0'
+          yes | sdkmanager --licenses >/dev/null
+
+      - name: Download Godot editor and matching export templates
+        shell: bash
+        run: |
+          set -euo pipefail
+          curl --fail --location --retry 3 \
+            "https://github.com/godotengine/godot/releases/download/${GODOT_VERSION}-stable/Godot_v${GODOT_VERSION}-stable_linux.x86_64.zip" \
+            -o /tmp/godot.zip
+          curl --fail --location --retry 3 \
+            "https://github.com/godotengine/godot/releases/download/${GODOT_VERSION}-stable/Godot_v${GODOT_VERSION}-stable_export_templates.tpz" \
+            -o /tmp/godot-templates.tpz
+          mkdir -p /tmp/godot-editor "$HOME/.local/share/godot/export_templates/${GODOT_VERSION_DIR}"
+          unzip -q /tmp/godot.zip -d /tmp/godot-editor
+          sudo install "/tmp/godot-editor/Godot_v${GODOT_VERSION}-stable_linux.x86_64" /usr/local/bin/godot
+          unzip -oq /tmp/godot-templates.tpz -d "$HOME/.local/share/godot/export_templates/${GODOT_VERSION_DIR}"
+          test -f "$HOME/.local/share/godot/export_templates/${GODOT_VERSION_DIR}/android_debug.apk"
+          godot --version
+
+      - name: Create Android debug keystore
+        run: |
+          mkdir -p "$HOME/.android"
+          keytool -genkeypair -v \
+            -keystore "$HOME/.android/debug.keystore" \
+            -storepass android -alias androiddebugkey -keypass android \
+            -dname 'CN=Android Debug,O=Android,C=US' \
+            -keyalg RSA -keysize 2048 -validity 10000
+
+      - name: Configure Godot Android editor settings
+        run: |
+          mkdir -p "$HOME/.config/godot"
+          cat > "$HOME/.config/godot/editor_settings-4.7.tres" <<EOF
+          [gd_resource type="EditorSettings" format=3]
+
+          [resource]
+          export/android/java_sdk_path = "$JAVA_HOME"
+          export/android/android_sdk_path = "$ANDROID_HOME"
+          export/android/debug_keystore = "$HOME/.android/debug.keystore"
+          export/android/debug_keystore_user = "androiddebugkey"
+          export/android/debug_keystore_pass = "android"
+          EOF
+
+      - name: Import and validate Godot project
+        run: |
+          godot --headless --path . --editor --import --quit
+          godot --headless --path . --script res://tests/smoke_test.gd
+
+      - name: Export debug APK
+        run: |
+          mkdir -p build
+          godot --headless --path . --export-debug 'Android' build/LegendsOfFight.apk
+          test -s build/LegendsOfFight.apk
+
+      - name: Verify APK package
+        run: |
+          "$ANDROID_HOME/build-tools/35.0.0/aapt" dump badging build/LegendsOfFight.apk | head -n 5
+
+      - name: Upload APK artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: LegendsOfFight-Android-${{ github.sha }}
+          path: build/LegendsOfFight.apk
+          if-no-files-found: error
+          retention-days: 30
+
+      - name: Publish APK to GitHub Release
+        if: startsWith(github.ref, 'refs/tags/v')
+        uses: softprops/action-gh-release@v2
+        with:
+          name: Legends of Fight ${{ github.ref_name }}
+          files: build/LegendsOfFight.apk
+          generate_release_notes: true
