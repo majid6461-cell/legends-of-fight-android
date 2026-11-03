@@ -52,7 +52,7 @@ jobs:
             'platform-tools' \
             'platforms;android-35' \
             'build-tools;35.0.0'
-          yes | sdkmanager --licenses >/dev/null
+          sdkmanager --licenses
 
       - name: Download Godot editor and matching export templates
         shell: bash
@@ -64,10 +64,15 @@ jobs:
           curl --fail --location --retry 3 \
             "https://github.com/godotengine/godot/releases/download/${GODOT_VERSION}-stable/Godot_v${GODOT_VERSION}-stable_export_templates.tpz" \
             -o /tmp/godot-templates.tpz
-          mkdir -p /tmp/godot-editor "$HOME/.local/share/godot/export_templates/${GODOT_VERSION_DIR}"
+          mkdir -p /tmp/godot-editor /tmp/godot-template-unpack "$HOME/.local/share/godot/export_templates/${GODOT_VERSION_DIR}"
           unzip -q /tmp/godot.zip -d /tmp/godot-editor
           sudo install "/tmp/godot-editor/Godot_v${GODOT_VERSION}-stable_linux.x86_64" /usr/local/bin/godot
-          unzip -oq /tmp/godot-templates.tpz -d "$HOME/.local/share/godot/export_templates/${GODOT_VERSION_DIR}"
+          unzip -oq /tmp/godot-templates.tpz -d /tmp/godot-template-unpack
+          if [ -d /tmp/godot-template-unpack/templates ]; then
+            cp -a /tmp/godot-template-unpack/templates/. "$HOME/.local/share/godot/export_templates/${GODOT_VERSION_DIR}/"
+          else
+            cp -a /tmp/godot-template-unpack/. "$HOME/.local/share/godot/export_templates/${GODOT_VERSION_DIR}/"
+          fi
           test -f "$HOME/.local/share/godot/export_templates/${GODOT_VERSION_DIR}/android_debug.apk"
           godot --version
 
