@@ -3,6 +3,8 @@ name: Build Android APK
 on:
   workflow_dispatch:
   push:
+    branches:
+      - main
     tags:
       - 'v*'
 
@@ -29,8 +31,9 @@ jobs:
           set -euo pipefail
           mkdir -p /tmp/lof-source
           cat source/chunk-*.b64 | base64 --decode > /tmp/lof-source.tar.xz
+          echo "c641f984599d8411afcc649289ced7901e79831805cde962ceb16fcffe1cd23c  /tmp/lof-source.tar.xz" | sha256sum --check
           tar -xJf /tmp/lof-source.tar.xz -C /tmp/lof-source
-          rsync -a --delete /tmp/lof-source/legends-of-fight-android/ ./
+          cp -a /tmp/lof-source/legends-of-fight-android/. ./
 
       - name: Set up Java 17
         uses: actions/setup-java@v4
