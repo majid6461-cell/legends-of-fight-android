@@ -131,12 +131,12 @@ The APK is debug-signed. Installation and gameplay on a physical phone or emulat
 
 ## Final verified build — v0.1.0 (2026-11-03)
 
-- [Successful GitHub Actions run #12](https://github.com/majid6461-cell/legends-of-fight-android/actions/runs/41626668554)
-- Godot 4.7.2 stable; import, GDScript parse validation, roster smoke test, Android export and package inspection: PASS.
-- Android emulator test: PASS. The x86_64 APK was installed with ADB, launched from the Android launcher, remained alive after 15 seconds, and produced no AndroidRuntime FATAL EXCEPTION.
+- [Successful GitHub Actions run #13](https://github.com/majid6461-cell/legends-of-fight-android/actions/runs/41626883972)
+- Both CI jobs passed: Godot import/GDScript parse, 12-fighter/8-arena smoke test, Android export and Android Emulator installation/launch.
+- Emulator validation: APK installed using ADB, launched through Android launcher, app process remained alive after 15 seconds, and no AndroidRuntime FATAL EXCEPTION was detected.
 - Package: com.legends.fight; version 0.1.0; min SDK 24; target SDK 36.
 - Architectures: ARM64-v8a and x86_64.
-- APK artifact: [download from Actions](https://github.com/majid6461-cell/legends-of-fight-android/actions/runs/41626668554/artifacts/13225089606).
-- Local APK SHA-256: ec5ee9f962fea2b7eb90d220bdba53e91c15a4af5a2521d0a6a71caa200e6c3c.
+- APK: [download from Actions artifact](https://github.com/majid6461-cell/legends-of-fight-android/actions/runs/41626883972/artifacts/13226666054).
+- APK SHA-256: 2e7c125908b0a0572e7684a055356a50c1ad1dd8d4db61382a8100add66c90b8.
 
-The APK is debug-signed. No test has been performed on a physical phone; complete gameplay/performance testing across devices remains future work. The project is an MVP with procedural low-poly characters and arenas, not a finished Tekken-scale commercial production.
+The APK is debug-signed and has not been tested on a physical phone. Full manual gameplay and cross-device performance testing remain future work. This is an MVP with procedural low-poly characters and arenas, not a finished Tekken-scale commercial production.

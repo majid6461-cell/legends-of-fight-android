@@ -70,12 +70,12 @@ APK فعلی Debug-signed است؛ نصب و اجرای آن روی گوشی و�
 
 ## نتیجهٔ نهایی نسخهٔ ۰.۱.۰ — ۳ نوامبر ۲۰۲۶
 
-- [اجرای موفق GitHub Actions شمارهٔ ۱۲](https://github.com/majid6461-cell/legends-of-fight-android/actions/runs/41626668554)
-- Godot 4.7.2 پایدار؛ Import، بررسی Parse اسکریپت‌ها، تست فهرست مبارزان و میدان‌ها، Export اندروید و بررسی مشخصات بسته: موفق.
-- آزمون شبیه‌ساز اندروید: موفق. APK با ADB نصب شد، از لانچر اندروید اجرا شد، پس از ۱۵ ثانیه فرایند برنامه فعال بود و خطای FATAL EXCEPTION در لاگ AndroidRuntime وجود نداشت.
+- [اجرای موفق GitHub Actions شمارهٔ ۱۳](https://github.com/majid6461-cell/legends-of-fight-android/actions/runs/41626883972)
+- هر دو Job موفق شدند: Import و بررسی Parse اسکریپت‌ها، تست ۱۲ مبارز و ۸ میدان، Export اندروید و نصب/اجرای شبیه‌ساز.
+- آزمون شبیه‌ساز: APK با ADB نصب شد، از لانچر اندروید اجرا شد، فرایند برنامه پس از ۱۵ ثانیه فعال ماند و خطای FATAL EXCEPTION در AndroidRuntime مشاهده نشد.
 - شناسهٔ بسته: com.legends.fight؛ نسخه: 0.1.0؛ حداقل SDK: ۲۴؛ Target SDK: ۳۶.
 - معماری‌ها: ARM64-v8a و x86_64.
-- [دریافت APK از Artifact اجرای موفق](https://github.com/majid6461-cell/legends-of-fight-android/actions/runs/41626668554/artifacts/13225089606)
-- SHA-256 فایل APK: ec5ee9f962fea2b7eb90d220bdba53e91c15a4af5a2521d0a6a71caa200e6c3c.
+- [دریافت APK از Artifact اجرای موفق](https://github.com/majid6461-cell/legends-of-fight-android/actions/runs/41626883972/artifacts/13226666054)
+- SHA-256 فایل APK: 2e7c125908b0a0572e7684a055356a50c1ad1dd8d4db61382a8100add66c90b8.
 
-این APK با کلید Debug امضا شده است. روی گوشی فیزیکی تست نشده و تست دستی تمام حالت‌های بازی و سنجش FPS/دما روی چند دستگاه هنوز انجام نشده است. این تحویل یک MVP با شخصیت‌ها و میدان‌های رویه‌ای Low-Poly است و محصول نهایی هم‌سطح Tekken محسوب نمی‌شود.
+APK با کلید Debug امضا شده و روی گوشی فیزیکی آزمایش نشده است. تست دستی کامل گیم‌پلی و عملکرد روی چند دستگاه هنوز انجام نشده است. این تحویل MVP با شخصیت‌ها و میدان‌های رویه‌ای Low-Poly است و محصول نهایی هم‌سطح Tekken نیست.
