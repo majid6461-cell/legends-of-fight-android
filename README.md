@@ -120,3 +120,10 @@ The Android export completed successfully with Godot 4.7.2. The project was impo
 Build run: https://github.com/majid6461-cell/legends-of-fight-android/actions/runs/41624645979
 
 The APK is debug-signed and has not been installed/tested on a physical device or emulator. A production release requires a private release keystore.
+
+
+## Final verification — 2026-11-03 (latest run)
+
+The latest CI run succeeded: https://github.com/majid6461-cell/legends-of-fight-android/actions/runs/41625155209. Godot 4.7.2 project import and GDScript parsing, the 12-fighter/8-arena smoke test, Android export, package metadata inspection, and artifact upload passed. APK package: com.legends.fight, version 0.1.0, min SDK 24, target SDK 36. Artifact ID: 13225029167.
+
+The APK is debug-signed. Installation and gameplay on a physical phone or emulator have not yet been performed. See docs/TEST_REPORT.md for details and SHA-256.

@@ -59,3 +59,10 @@ godot --headless --path . --export-debug "Android" build/LegendsOfFight.apk
 [مشاهدهٔ اجرای موفق Build در GitHub Actions](https://github.com/majid6461-cell/legends-of-fight-android/actions/runs/41624645979)
 
 APK فعلاً Debug-signed است و نصب و اجرای آن روی گوشی یا شبیه‌ساز هنوز آزمایش نشده است. برای انتشار تجاری، امضای Release با کلید خصوصی لازم است.
+
+
+## نتیجهٔ نهایی ساخت نسخهٔ ۰.۱.۰
+
+آخرین اجرای CI در ۳ نوامبر ۲۰۲۶ با موفقیت پایان یافت: [GitHub Actions run](https://github.com/majid6461-cell/legends-of-fight-android/actions/runs/41625155209). Import پروژه، Parse اسکریپت اصلی، تست خودکار ۱۲ مبارز و ۸ میدان، Export اندروید و بررسی مشخصات بسته موفق شدند. شناسهٔ بسته com.legends.fight و نسخهٔ 0.1.0 است. Artifact با شناسهٔ 13225029167 بارگذاری شد.
+
+APK فعلی Debug-signed است؛ نصب و اجرای آن روی گوشی واقعی یا شبیه‌ساز هنوز انجام نشده است. جزئیات و SHA-256 در docs/TEST_REPORT.md آمده است.
