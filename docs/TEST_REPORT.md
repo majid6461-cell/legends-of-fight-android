@@ -25,3 +25,19 @@
 5. Install the artifact on at least one Android device and test single-player, local two-player, tournament, practice, touch input, and orientation.
 
 **No claim is made that an APK exists or that the game has passed runtime/device testing.**
+
+## Final verification update — 2026-11-03
+
+The initial local environment did not contain Godot or the Android SDK. After the repository was connected, the GitHub Actions workflow was run and corrected. The fourth run completed successfully:
+
+- Run: https://github.com/majid6461-cell/legends-of-fight-android/actions/runs/41624645979
+- Godot: 4.7.2 stable
+- Project import: PASS
+- Smoke test: PASS (12 unique fighter entries, 8 arena entries)
+- Android export: PASS
+- Package metadata: com.legends.fight, version 0.1.0, min SDK 24, target SDK 36
+- Artifact ID: 13225740230
+- APK size: 28,448,164 bytes
+- APK SHA-256: 1ff769bd2de458b381d60f5f4fdde900858e0c81fef37fb0c29f8e46f392921c
+
+The exported APK was downloaded back from GitHub and its ZIP integrity check passed. It has NOT been installed or run on a physical phone or emulator. It is debug-signed; production distribution requires a private release keystore.
