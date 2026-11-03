@@ -112,3 +112,11 @@ Then open **GitHub → Actions → Build Android APK** and download the artifact
 ## License
 
 Project source is provided for personal development and modification. All code and procedural placeholder art in this starter project are original to this project. Add third-party assets only after checking their licenses.
+
+## Latest build status — v0.1.0 (2026-11-03)
+
+The Android export completed successfully with Godot 4.7.2. The project was imported headlessly, the roster/arena smoke test passed, and the APK package metadata was verified (com.legends.fight, version 0.1.0, min SDK 24, target SDK 36). The debug APK was uploaded as a GitHub Actions artifact.
+
+Build run: https://github.com/majid6461-cell/legends-of-fight-android/actions/runs/41624645979
+
+The APK is debug-signed and has not been installed/tested on a physical device or emulator. A production release requires a private release keystore.
